@@ -5,7 +5,6 @@ variable "data_pipe_apps_cidr_block" {}
 variable "az" {}
 variable "name_prefix" {}
 
-
 locals {
   name_prefix = "${var.name_prefix}apps-data-pipeline-"
 }
@@ -75,12 +74,13 @@ resource "aws_security_group" "bastions_db" {
   }
 
   ingress {
-    from_port   = 1433
-    to_port     = 1433
-    protocol    = "tcp"
+    from_port = 1433
+    to_port   = 1433
+    protocol  = "tcp"
+
     cidr_blocks = [
       "${var.appsvpc_cidr_block}",
-      "${var.opsvpc_cidr_block}"
+      "${var.opsvpc_cidr_block}",
     ]
   }
 
