@@ -80,7 +80,7 @@ resource "aws_security_group" "dp_db" {
 
     cidr_blocks = [
       "${var.appsvpc_cidr_block}",
-      "${var.opsvpc_cidr_block}",
+      "${var.opsvpc_cidr_block}"
     ]
   }
 
