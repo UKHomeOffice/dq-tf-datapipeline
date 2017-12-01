@@ -7,7 +7,7 @@ variable "name_prefix" {}
 
 
 locals {
-  name_prefix = "${var.name_prefix}apps-"
+  name_prefix = "${var.name_prefix}apps-data-pipeline-"
 }
 
 resource "aws_subnet" "data_pipe_apps" {
@@ -17,7 +17,7 @@ resource "aws_subnet" "data_pipe_apps" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}data-pipeline-subnet"
+    Name = "${local.name_prefix}subnet"
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_instance" "dp_postgres" {
   vpc_security_group_ids = ["${aws_security_group.bastions_db.id}"]
 
   tags {
-    Name = "${local.name_prefix}data-pipeline-postgres"
+    Name = "${local.name_prefix}postgres"
   }
 
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
@@ -61,17 +61,17 @@ resource "aws_instance" "dp_web" {
   vpc_security_group_ids = ["${aws_security_group.bastions_web.id}"]
 
   tags {
-    Name = "${local.name_prefix}data-pipeline-web"
+    Name = "${local.name_prefix}web"
   }
 
-  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_rdp=0.0.0.0:3389"
+  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:3389"
 }
 
 resource "aws_security_group" "bastions_db" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
-    Name = "${local.name_prefix}data-pipeline-db-sg"
+    Name = "${local.name_prefix}db-sg"
   }
 
   ingress {
@@ -103,7 +103,7 @@ resource "aws_security_group" "bastions_web" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
-    Name = "${local.name_prefix}data-pipeline-web-sg"
+    Name = "${local.name_prefix}web-sg"
   }
 
   ingress {
