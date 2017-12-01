@@ -44,7 +44,7 @@ resource "aws_instance" "dp_postgres" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
   subnet_id              = "${aws_subnet.data_pipe_apps.id}"
-  vpc_security_group_ids = ["${aws_security_group.bastions_db.id}"]
+  vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
 
   tags {
     Name = "${local.name_prefix}postgres"
@@ -57,7 +57,7 @@ resource "aws_instance" "dp_web" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
   subnet_id              = "${aws_subnet.data_pipe_apps.id}"
-  vpc_security_group_ids = ["${aws_security_group.bastions_web.id}"]
+  vpc_security_group_ids = ["${aws_security_group.dp_web.id}"]
 
   tags {
     Name = "${local.name_prefix}web"
@@ -66,7 +66,7 @@ resource "aws_instance" "dp_web" {
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:3389"
 }
 
-resource "aws_security_group" "bastions_db" {
+resource "aws_security_group" "dp_db" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
@@ -99,7 +99,7 @@ resource "aws_security_group" "bastions_db" {
   }
 }
 
-resource "aws_security_group" "bastions_web" {
+resource "aws_security_group" "dp_web" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
