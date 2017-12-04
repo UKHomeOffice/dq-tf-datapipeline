@@ -72,8 +72,8 @@ resource "aws_security_group" "dp_db" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.appsvpc_cidr_block}",
-      "${var.opsvpc_cidr_block}",
+      "${var.data_pipe_apps_cidr_block}",
+      "${var.opssubnet_cidr_block}",
     ]
   }
 
@@ -81,7 +81,7 @@ resource "aws_security_group" "dp_db" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["${var.opsvpc_cidr_block}"]
+    cidr_blocks = ["${var.opssubnet_cidr_block}"]
   }
 
   egress {
@@ -103,7 +103,7 @@ resource "aws_security_group" "dp_web" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["${var.opsvpc_cidr_block}"]
+    cidr_blocks = ["${var.opssubnet_cidr_block}"]
   }
 
   egress {

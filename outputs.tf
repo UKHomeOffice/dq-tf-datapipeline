@@ -1,8 +1,8 @@
 output "appsvpc_id" {
   value = "${var.appsvpc_id}"
 }
-output "opsvpc_cidr_block" {
-  value = "${var.opsvpc_cidr_block}"
+output "opssubnet_cidr_block" {
+  value = "${var.opssubnet_cidr_block}"
 }
 output "appsvpc_cidr_block" {
   value = "${var.appsvpc_cidr_block}"
