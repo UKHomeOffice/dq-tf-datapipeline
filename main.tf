@@ -13,50 +13,26 @@ resource "aws_subnet" "data_pipe_apps" {
   }
 }
 
-variable instance_type {
-  default = "t2.nano"
+module "dp_postgres" {
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  subnet_id       = "${aws_subnet.data_pipe_apps.id}"
+  user_data       = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
+  security_groups = ["${aws_security_group.dp_db.id}"]
+
+  //  tags {
+  //    Name = "${local.name_prefix}postgres"
+  //  }
 }
 
-data "aws_ami" "linux_connectivity_tester" {
-  most_recent = true
+module "dp_web" {
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  subnet_id       = "${aws_subnet.data_pipe_apps.id}"
+  user_data       = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:3389"
+  security_groups = ["${aws_security_group.dp_web.id}"]
 
-  filter {
-    name = "name"
-
-    values = [
-      "connectivity-tester-linux*",
-    ]
-  }
-
-  owners = [
-    "093401982388",
-  ]
-}
-
-resource "aws_instance" "dp_postgres" {
-  ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
-  instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.data_pipe_apps.id}"
-  vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
-
-  tags {
-    Name = "${local.name_prefix}postgres"
-  }
-
-  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
-}
-
-resource "aws_instance" "dp_web" {
-  ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
-  instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.data_pipe_apps.id}"
-  vpc_security_group_ids = ["${aws_security_group.dp_web.id}"]
-
-  tags {
-    Name = "${local.name_prefix}web"
-  }
-
-  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:3389"
+  //  tags {
+  //    Name = "${local.name_prefix}web"
+  //  }
 }
 
 resource "aws_security_group" "dp_db" {
