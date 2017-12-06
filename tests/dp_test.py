@@ -40,12 +40,6 @@ class TestE2E(unittest.TestCase):
     def test_name_prefix_data_pipe_apps_subnet(self):
         self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["tags.Name"], "dq-apps-data-pipeline-subnet")
 
-    def test_name_prefix_dp_postgres(self):
-        self.assertEqual(self.result['data_pipeline']["aws_instance.dp_postgres"]["tags.Name"], "dq-apps-data-pipeline-postgres")
-
-    def test_name_prefix_dp_web(self):
-        self.assertEqual(self.result['data_pipeline']["aws_instance.dp_web"]["tags.Name"], "dq-apps-data-pipeline-web")
-
     def test_name_prefix_dp_db(self):
         self.assertEqual(self.result['data_pipeline']["aws_security_group.dp_db"]["tags.Name"], "dq-apps-data-pipeline-db-sg")
 

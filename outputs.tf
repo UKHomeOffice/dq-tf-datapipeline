@@ -21,3 +21,11 @@ output "az" {
 output "name_prefix" {
   value = "${var.name_prefix}"
 }
+
+output "dp_postgres_ip" {
+  value = "${var.dp_postgres_ip}"
+}
+
+output "dp_web_ip" {
+  value = "${var.dp_web_ip}"
+}

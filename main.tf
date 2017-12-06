@@ -16,23 +16,17 @@ resource "aws_subnet" "data_pipe_apps" {
 module "dp_postgres" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
   subnet_id       = "${aws_subnet.data_pipe_apps.id}"
-  user_data       = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
+  user_data       = "LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
   security_groups = ["${aws_security_group.dp_db.id}"]
-
-  //  tags {
-  //    Name = "${local.name_prefix}postgres"
-  //  }
+  private_ip      = "${var.dp_postgres_ip}"
 }
 
 module "dp_web" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
   subnet_id       = "${aws_subnet.data_pipe_apps.id}"
-  user_data       = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:3389"
+  user_data       = "LISTEN_tcp=0.0.0.0:3389 CHECK_db=${var.dp_postgres_ip}:1433"
   security_groups = ["${aws_security_group.dp_web.id}"]
-
-  //  tags {
-  //    Name = "${local.name_prefix}web"
-  //  }
+  private_ip      = "${var.dp_web_ip}"
 }
 
 resource "aws_security_group" "dp_db" {
