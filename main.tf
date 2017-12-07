@@ -13,6 +13,11 @@ resource "aws_subnet" "data_pipe_apps" {
   }
 }
 
+resource "aws_route_table_association" "data_pipe_rt_association" {
+  subnet_id      = "${aws_subnet.data_pipe_apps.id}"
+  route_table_id = "${var.route_table_id}"
+}
+
 module "dp_postgres" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
   subnet_id       = "${aws_subnet.data_pipe_apps.id}"
