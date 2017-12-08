@@ -19,3 +19,18 @@ variable "dp_web_ip" {
   description = "Mock EC2 web instance."
   default     = "10.1.8.21"
 }
+
+variable "service" {
+  default     = "dq-data-pipeline"
+  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
+}
+
+variable "environment" {
+  default     = "preprod"
+  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
+}
+
+variable "environment_group" {
+  default     = "dq-apps"
+  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
+}

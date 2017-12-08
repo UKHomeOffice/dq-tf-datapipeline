@@ -24,6 +24,13 @@ module "dp_postgres" {
   user_data       = "LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
   security_groups = ["${aws_security_group.dp_db.id}"]
   private_ip      = "${var.dp_postgres_ip}"
+
+  tags = {
+    Name             = "ec2-${var.service}-sql-server-${var.environment}"
+    Service          = "${var.service}"
+    Environment      = "${var.environment}"
+    EnvironmentGroup = "${var.environment_group}"
+  }
 }
 
 module "dp_web" {
@@ -32,6 +39,13 @@ module "dp_web" {
   user_data       = "LISTEN_tcp=0.0.0.0:3389 CHECK_db=${var.dp_postgres_ip}:1433"
   security_groups = ["${aws_security_group.dp_web.id}"]
   private_ip      = "${var.dp_web_ip}"
+
+  tags = {
+    Name             = "ec2-${var.service}-wherescape-${var.environment}"
+    Service          = "${var.service}"
+    Environment      = "${var.environment}"
+    EnvironmentGroup = "${var.environment_group}"
+  }
 }
 
 resource "aws_security_group" "dp_db" {
