@@ -63,14 +63,19 @@ resource "aws_security_group" "dp_db" {
     cidr_blocks = [
       "${var.data_pipe_apps_cidr_block}",
       "${var.opssubnet_cidr_block}",
+      "${var.peering_cidr_block}",
     ]
   }
 
   ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["${var.opssubnet_cidr_block}"]
+    from_port = 3389
+    to_port   = 3389
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.opssubnet_cidr_block}",
+      "${var.peering_cidr_block}",
+    ]
   }
 
   egress {
@@ -89,10 +94,14 @@ resource "aws_security_group" "dp_web" {
   }
 
   ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["${var.opssubnet_cidr_block}"]
+    from_port = 3389
+    to_port   = 3389
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.opssubnet_cidr_block}",
+      "${var.peering_cidr_block}",
+    ]
   }
 
   egress {
