@@ -18,10 +18,6 @@ output "az" {
   value = "${var.az}"
 }
 
-output "name_prefix" {
-  value = "${var.name_prefix}"
-}
-
 output "dp_postgres_ip" {
   value = "${var.dp_postgres_ip}"
 }

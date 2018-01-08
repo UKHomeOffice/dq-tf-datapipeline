@@ -4,7 +4,11 @@ variable "appsvpc_cidr_block" {}
 variable "data_pipe_apps_cidr_block" {}
 variable "peering_cidr_block" {}
 variable "az" {}
-variable "name_prefix" {}
+
+variable "naming_suffix" {
+  default     = false
+  description = "Naming suffix for tags, value passed from dq-tf-apps"
+}
 
 variable "route_table_id" {
   default     = false
@@ -19,19 +23,4 @@ variable "dp_postgres_ip" {
 variable "dp_web_ip" {
   description = "Mock EC2 web instance."
   default     = "10.1.8.21"
-}
-
-variable "service" {
-  default     = "dq-data-pipeline"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
-}
-
-variable "environment" {
-  default     = "preprod"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
-}
-
-variable "environment_group" {
-  default     = "dq-apps"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }

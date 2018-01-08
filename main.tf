@@ -1,5 +1,5 @@
 locals {
-  name_prefix = "${var.name_prefix}apps-data-pipeline-"
+  naming_suffix = "data-pipeline-${var.naming_suffix}"
 }
 
 resource "aws_subnet" "data_pipe_apps" {
@@ -9,7 +9,7 @@ resource "aws_subnet" "data_pipe_apps" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}subnet"
+    Name = "subnet-${local.naming_suffix}"
   }
 }
 
@@ -26,10 +26,7 @@ module "dp_postgres" {
   private_ip      = "${var.dp_postgres_ip}"
 
   tags = {
-    Name             = "ec2-${var.service}-sql-server-${var.environment}"
-    Service          = "${var.service}"
-    Environment      = "${var.environment}"
-    EnvironmentGroup = "${var.environment_group}"
+    Name = "sql-server-${local.naming_suffix}"
   }
 }
 
@@ -41,10 +38,7 @@ module "dp_web" {
   private_ip      = "${var.dp_web_ip}"
 
   tags = {
-    Name             = "ec2-${var.service}-wherescape-${var.environment}"
-    Service          = "${var.service}"
-    Environment      = "${var.environment}"
-    EnvironmentGroup = "${var.environment_group}"
+    Name = "wherescape-${local.naming_suffix}"
   }
 }
 
@@ -52,7 +46,7 @@ resource "aws_security_group" "dp_db" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
-    Name = "${local.name_prefix}db-sg"
+    Name = "sg-db-${local.naming_suffix}"
   }
 
   ingress {
@@ -90,7 +84,7 @@ resource "aws_security_group" "dp_web" {
   vpc_id = "${var.appsvpc_id}"
 
   tags {
-    Name = "${local.name_prefix}web-sg"
+    Name = "sg-web-${local.naming_suffix}"
   }
 
   ingress {

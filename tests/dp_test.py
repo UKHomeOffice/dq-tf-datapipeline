@@ -27,7 +27,7 @@ class TestE2E(unittest.TestCase):
               data_pipe_apps_cidr_block   = "10.1.8.0/24"
               peering_cidr_block          = "1.1.1.0/24"
               az                          = "eu-west-2a"
-              name_prefix                 = "dq-"
+              naming_suffix               = "apps-preprod-dq"
             }
         """
         self.result = Runner(self.snippet).result
@@ -38,14 +38,14 @@ class TestE2E(unittest.TestCase):
     def test_data_pipe_apps(self):
         self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["cidr_block"], "10.1.8.0/24")
 
-    def test_name_prefix_data_pipe_apps(self):
-        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["tags.Name"], "dq-apps-data-pipeline-subnet")
+    def test_name_suffix_data_pipe_apps(self):
+        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["tags.Name"], "subnet-data-pipeline-apps-preprod-dq")
 
-    def test_name_prefix_dp_db(self):
-        self.assertEqual(self.result['data_pipeline']["aws_security_group.dp_db"]["tags.Name"], "dq-apps-data-pipeline-db-sg")
+    def test_name_suffix_dp_db(self):
+        self.assertEqual(self.result['data_pipeline']["aws_security_group.dp_db"]["tags.Name"], "sg-db-data-pipeline-apps-preprod-dq")
 
-    def test_name_prefix_dp_web(self):
-        self.assertEqual(self.result['data_pipeline']["aws_security_group.dp_web"]["tags.Name"], "dq-apps-data-pipeline-web-sg")
+    def test_name_suffix_dp_web(self):
+        self.assertEqual(self.result['data_pipeline']["aws_security_group.dp_web"]["tags.Name"], "sg-web-data-pipeline-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
