@@ -42,44 +42,6 @@ module "dp_web" {
   }
 }
 
-resource "aws_security_group" "dp_db" {
-  vpc_id = "${var.appsvpc_id}"
-
-  tags {
-    Name = "sg-db-${local.naming_suffix}"
-  }
-
-  ingress {
-    from_port = 1433
-    to_port   = 1433
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${var.data_pipe_apps_cidr_block}",
-      "${var.opssubnet_cidr_block}",
-      "${var.peering_cidr_block}",
-    ]
-  }
-
-  ingress {
-    from_port = 3389
-    to_port   = 3389
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${var.opssubnet_cidr_block}",
-      "${var.peering_cidr_block}",
-    ]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_security_group" "dp_web" {
   vpc_id = "${var.appsvpc_id}"
 
