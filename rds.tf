@@ -30,6 +30,8 @@ resource "random_string" "password" {
 resource "random_string" "username" {
   length  = 8
   special = false
+  number  = false
+  upper   = false
 }
 
 resource "aws_security_group" "dp_db" {
