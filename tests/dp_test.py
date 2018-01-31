@@ -31,7 +31,6 @@ class TestE2E(unittest.TestCase):
               az2                         = "eu-west-2b"
               naming_suffix               = "apps-preprod-dq"
               key_name                    = "test"
-              instance_type               = "t2.micro"
               archive_bucket              = "arn:aws:s3:::thisisabucket"
               bucket_key                  = "arn:aws:kms:eu-west-2:111111111111:key/abcdabcdabcdabcd"
             }

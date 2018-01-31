@@ -36,11 +36,6 @@ variable "key_name" {
   description = "SSH key name for EC2 instances"
 }
 
-variable "instance_type" {
-  default     = "t2.micro"
-  description = "Size of the EC2 instances"
-}
-
 variable "archive_bucket" {
   description = "Archive S3 bucket arn"
 }
