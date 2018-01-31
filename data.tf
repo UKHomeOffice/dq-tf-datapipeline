@@ -9,11 +9,11 @@ data "aws_ami" "dp_web" {
     name = "name"
 
     values = [
-      "dq-data-ingest-server*",
+      "dq-data-pipeline-server*",
     ]
   }
 
   owners = [
-    "self",
+    "093401982388",
   ]
 }

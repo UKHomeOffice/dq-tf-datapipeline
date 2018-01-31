@@ -45,7 +45,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["cidr_block"], "10.1.8.0/24")
 
     def test_data_pipe_rds(self):
-        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_az2"]["cidr_block"], "10.1.9.0/24")
+        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_rds_az2"]["cidr_block"], "10.1.9.0/24")
 
     def test_name_suffix_data_pipe_apps(self):
         self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_apps"]["tags.Name"], "subnet-data-pipeline-apps-preprod-dq")
@@ -60,7 +60,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_pipeline']["aws_db_subnet_group.rds"]["tags.Name"], "rds-subnet-group-data-pipeline-apps-preprod-dq")
 
     def test_name_suffix_dp_subnet2(self):
-        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_az2"]["tags.Name"], "az2-subnet-data-pipeline-apps-preprod-dq")
+        self.assertEqual(self.result['data_pipeline']["aws_subnet.data_pipe_rds_az2"]["tags.Name"], "rds-subnet-az2-data-pipeline-apps-preprod-dq")
 
     def test_name_suffix_dp_rds(self):
         self.assertEqual(self.result['data_pipeline']["aws_db_instance.mssql_2012"]["tags.Name"], "rds-mssql2012-data-pipeline-apps-preprod-dq")

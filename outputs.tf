@@ -27,5 +27,5 @@ output "dp_web_ip" {
 }
 
 output "iam_roles" {
-  value = ["${aws_iam_role.data_pipeline_iam_role}"]
+  value = ["${aws_iam_role.data_pipeline_iam_role.name}"]
 }
