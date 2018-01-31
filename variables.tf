@@ -26,3 +26,25 @@ variable "dp_web_ip" {
   description = "Mock EC2 web instance."
   default     = "10.1.8.21"
 }
+
+variable "dp_web_private_ip" {
+  description = "Defailt IP address"
+  default     = "10.1.8.100"
+}
+
+variable "key_name" {
+  description = "SSH key name for EC2 instances"
+}
+
+variable "instance_type" {
+  default     = "t2.micro"
+  description = "Size of the EC2 instances"
+}
+
+variable "archive_bucket" {
+  description = "Archive S3 bucket arn"
+}
+
+variable "bucket_key" {
+  description = "Decrypt S3 bucket key"
+}

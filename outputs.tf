@@ -25,3 +25,7 @@ output "dp_postgres_ip" {
 output "dp_web_ip" {
   value = "${var.dp_web_ip}"
 }
+
+output "iam_roles" {
+  value = ["${aws_iam_role.data_pipeline_iam_role}"]
+}
