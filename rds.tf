@@ -78,14 +78,13 @@ resource "aws_security_group" "dp_db" {
 }
 
 resource "aws_db_instance" "mssql_2012" {
-  allocated_storage = 200
-  storage_type      = "gp2"
-  engine            = "sqlserver-se"
-  engine_version    = "11.00.6594.0.v1"
-  license_model     = "license-included"
-  instance_class    = "db.m4.xlarge"
-  username          = "${random_string.username.result}"
-  password          = "${random_string.password.result}"
+  allocated_storage   = 200
+  storage_type        = "gp2"
+  engine              = "sqlserver-se"
+  engine_version      = "11.00.6594.0.v1"
+  license_model       = "license-included"
+  instance_class      = "db.m4.xlarge"
+  snapshot_identifier = "metadata-loaded"
 
   db_subnet_group_name   = "${aws_db_subnet_group.rds.id}"
   vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
