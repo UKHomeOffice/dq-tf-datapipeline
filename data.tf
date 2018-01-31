@@ -21,6 +21,6 @@ data "aws_ami" "dp_web" {
 data "aws_db_snapshot" "dp_db_snapshot" {
   most_recent            = true
   include_shared         = true
-  snapshot_type          = shared
+  snapshot_type          = "shared"
   db_snapshot_identifier = "metadata-loaded"
 }
