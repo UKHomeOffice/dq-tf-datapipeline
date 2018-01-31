@@ -14,6 +14,6 @@ data "aws_ami" "dp_web" {
   }
 
   owners = [
-    "093401982388",
+    "self",
   ]
 }

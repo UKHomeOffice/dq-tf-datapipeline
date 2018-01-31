@@ -38,7 +38,7 @@ module "dp_web" {
   private_ip      = "${var.dp_web_ip}"
 
   tags = {
-    Name = "wherescape-test-${local.naming_suffix}"
+    Name = "wherescape-connectivity-tester-${local.naming_suffix}"
   }
 }
 

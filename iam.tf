@@ -47,5 +47,5 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "data_pipeline" {
-  role = "${aws_iam_role.data_pipeline_iam_role.arn}"
+  role = "${aws_iam_role.data_pipeline_iam_role.name}"
 }
