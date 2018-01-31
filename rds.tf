@@ -78,13 +78,17 @@ resource "aws_security_group" "dp_db" {
 }
 
 resource "aws_db_instance" "mssql_2012" {
-  allocated_storage   = 200
-  storage_type        = "gp2"
-  engine              = "sqlserver-se"
-  engine_version      = "11.00.6594.0.v1"
-  license_model       = "license-included"
-  instance_class      = "db.m4.xlarge"
-  snapshot_identifier = "metadata-loaded"
+  allocated_storage       = 200
+  storage_type            = "gp2"
+  engine                  = "sqlserver-se"
+  engine_version          = "11.00.6594.0.v1"
+  license_model           = "license-included"
+  instance_class          = "db.m4.xlarge"
+  snapshot_identifier     = "${data.aws_db_snapshot.dp_db_snapshot.id}"
+  backup_retention_period = 14
+  backup_window           = "00:00-01:00"
+  maintenance_window      = "mon:01:30-mon:02:30"
+  monitoring_interval     = 1
 
   db_subnet_group_name   = "${aws_db_subnet_group.rds.id}"
   vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
