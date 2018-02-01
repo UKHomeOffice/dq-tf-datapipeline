@@ -17,9 +17,3 @@ data "aws_ami" "dp_web" {
     "self",
   ]
 }
-
-data "aws_db_snapshot" "dp_db_snapshot" {
-  most_recent            = true
-  include_shared         = true
-  db_snapshot_identifier = "arn:aws:rds:eu-west-2:483846886818:snapshot:metadata-loaded"
-}

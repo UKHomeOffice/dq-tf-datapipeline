@@ -27,18 +27,6 @@ resource "aws_route_table_association" "data_pipe_rt_az2" {
   route_table_id = "${var.route_table_id}"
 }
 
-resource "random_string" "password" {
-  length  = 16
-  special = false
-}
-
-resource "random_string" "username" {
-  length  = 8
-  special = false
-  number  = false
-  upper   = false
-}
-
 resource "aws_security_group" "dp_db" {
   vpc_id = "${var.appsvpc_id}"
 
@@ -84,7 +72,6 @@ resource "aws_db_instance" "mssql_2012" {
   engine_version            = "11.00.6594.0.v1"
   license_model             = "license-included"
   instance_class            = "db.m4.xlarge"
-  snapshot_identifier       = "${data.aws_db_snapshot.dp_db_snapshot.id}"
   backup_retention_period   = 14
   backup_window             = "00:00-01:00"
   maintenance_window        = "mon:01:30-mon:02:30"
