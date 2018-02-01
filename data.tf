@@ -20,5 +20,6 @@ data "aws_ami" "dp_web" {
 
 data "aws_db_snapshot" "dp_db_snapshot" {
   most_recent            = true
-  db_snapshot_identifier = "final-snapshot-rds-mssql2012-data-pipeline-apps-notprod-dq"
+  include_shared         = true
+  db_snapshot_identifier = "arn:aws:rds:eu-west-2:483846886818:snapshot:final-snapshot-rds-mssql2012-data-pipeline-apps-notprod-dq"
 }
