@@ -88,6 +88,7 @@ resource "aws_db_instance" "mssql_2012" {
   backup_retention_period   = 14
   backup_window             = "00:00-01:00"
   maintenance_window        = "mon:01:30-mon:02:30"
+  skip_final_snapshot       = true
   final_snapshot_identifier = "final-snapshot-rds-mssql2012-${local.naming_suffix}"
 
   db_subnet_group_name   = "${aws_db_subnet_group.rds.id}"
