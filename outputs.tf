@@ -29,3 +29,7 @@ output "dp_web_ip" {
 output "iam_roles" {
   value = ["${aws_iam_role.data_pipeline_iam_role.name}"]
 }
+
+output "win_instance_id" {
+  value = "${aws_instance.dp_web.id}"
+}
