@@ -65,13 +65,6 @@ resource "aws_security_group" "dp_db" {
   }
 }
 
-resource "random_string" "snapshot" {
-  length  = 4
-  upper   = false
-  number  = false
-  special = false
-}
-
 resource "random_string" "username" {
   length  = 8
   number  = false
