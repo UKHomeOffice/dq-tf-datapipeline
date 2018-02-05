@@ -96,6 +96,10 @@ resource "aws_db_instance" "mssql_2012" {
   db_subnet_group_name   = "${aws_db_subnet_group.rds.id}"
   vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
 
+  lifecycle {
+    prevent_destroy = true
+  }
+
   tags {
     Name = "rds-mssql2012-${local.naming_suffix}"
   }
