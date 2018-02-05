@@ -77,21 +77,21 @@ resource "random_string" "password" {
 }
 
 resource "aws_db_instance" "mssql_2012" {
-  identifier                = "rds-mssql2012-${local.naming_suffix}"
-  allocated_storage         = 200
-  storage_type              = "gp2"
-  engine                    = "sqlserver-se"
-  engine_version            = "11.00.6594.0.v1"
-  license_model             = "license-included"
-  instance_class            = "db.m4.large"
-  username                  = "${random_string.username.result}"
-  password                  = "${random_string.password.result}"
-  backup_window             = "00:00-01:00"
-  maintenance_window        = "mon:01:30-mon:02:30"
-  backup_retention_period   = 14
-  storage_encrypted         = true
-  multi_az                  = true
-  skip_final_snapshot       = true
+  identifier              = "rds-mssql2012-${local.naming_suffix}"
+  allocated_storage       = 200
+  storage_type            = "gp2"
+  engine                  = "sqlserver-se"
+  engine_version          = "11.00.6594.0.v1"
+  license_model           = "license-included"
+  instance_class          = "db.m4.large"
+  username                = "${random_string.username.result}"
+  password                = "${random_string.password.result}"
+  backup_window           = "00:00-01:00"
+  maintenance_window      = "mon:01:30-mon:02:30"
+  backup_retention_period = 14
+  storage_encrypted       = true
+  multi_az                = true
+  skip_final_snapshot     = true
 
   db_subnet_group_name   = "${aws_db_subnet_group.rds.id}"
   vpc_security_group_ids = ["${aws_security_group.dp_db.id}"]
