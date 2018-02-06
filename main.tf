@@ -30,8 +30,8 @@ resource "aws_instance" "dp_web" {
 
   user_data = <<EOF
   $WSPass = aws --region eu-west-2 ssm get-parameter --name wherescape_rds_user --query 'Parameter.Value' --output text --with-decryption
-  $GPPass = aws --region eu-west-2 ssm get-parameter --name wherescape_rds_user --query 'Parameter.Value' --output text --with-decryption
   Add-OdbcDsn -Name "WSDQ" -DriverName "SQL Server Native Client 11.0" -DsnType "System" -Platform "32-bit" -SetPropertyValue @("Server=${aws_db_instance.mssql_2012.address}", "Username=wherescape", "Password=$WSPass", "Port=1433", "Trusted_Connection=Yes", "Database=WSDQ")
+  Add-OdbcDsn -Name "DQ_db" -DriverName "DataDirect 7.1 Greenplum Wire Protocol" -DsnType "System" -Platform "64-bit" -SetPropertyValue @("Server=10.1.25.4, "Username=wherescape", "Trusted_Connection=Yes", "Database=DQ_db")
 EOF
 
   tags = {
