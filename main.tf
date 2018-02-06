@@ -18,30 +18,6 @@ resource "aws_route_table_association" "data_pipe_rt_association" {
   route_table_id = "${var.route_table_id}"
 }
 
-module "dp_postgres" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  subnet_id       = "${aws_subnet.data_pipe_apps.id}"
-  user_data       = "LISTEN_db=0.0.0.0:1433 LISTEN_rdp=0.0.0.0:3389"
-  security_groups = ["${aws_security_group.dp_db.id}"]
-  private_ip      = "${var.dp_postgres_ip}"
-
-  tags = {
-    Name = "sql-server-${local.naming_suffix}"
-  }
-}
-
-module "dp_web" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  subnet_id       = "${aws_subnet.data_pipe_apps.id}"
-  user_data       = "LISTEN_tcp=0.0.0.0:3389 CHECK_db=${var.dp_postgres_ip}:1433"
-  security_groups = ["${aws_security_group.dp_web.id}"]
-  private_ip      = "${var.dp_web_ip}"
-
-  tags = {
-    Name = "wherescape-connectivity-tester-${local.naming_suffix}"
-  }
-}
-
 resource "aws_instance" "dp_web" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.dp_web.id}"
@@ -51,6 +27,12 @@ resource "aws_instance" "dp_web" {
   associate_public_ip_address = false
   subnet_id                   = "${aws_subnet.data_pipe_apps.id}"
   private_ip                  = "${var.dp_web_private_ip}"
+
+  user_data = <<EOF
+  $WSPass = aws --region eu-west-2 ssm get-parameter --name wherescape_rds_user --with-decryption
+  $GPPass = aws --region eu-west-2 ssm get-parameter --name wherescape_rds_user --with-decryption
+  Add-OdbcDsn -Name "WSDQ" -DriverName "SQL Server Native Client 11.0" -DsnType "System" -Platform "32-bit" -SetPropertyValue @("Server=${aws_db_instance.mssql_2012.address}", "Username=wherescape", "Password=$WSPass", "Port=1433", "Trusted_Connection=Yes", "Database=WSDQ")
+EOF
 
   tags = {
     Name = "wherescape-${local.naming_suffix}"
