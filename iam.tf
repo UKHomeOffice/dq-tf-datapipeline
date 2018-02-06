@@ -46,6 +46,26 @@ resource "aws_iam_role_policy" "data_pipeline_archive" {
 EOF
 }
 
+resource "aws_iam_role_policy" "iam_role_policy" {
+  role = "${aws_iam_role.data_pipeline_iam_role.id}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_iam_instance_profile" "data_pipeline" {
   role = "${aws_iam_role.data_pipeline_iam_role.name}"
 }
