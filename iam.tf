@@ -64,7 +64,9 @@ resource "aws_iam_role_policy" "iam_role_policy" {
             "Effect": "Allow",
             "Action": [
                 "ssm:DescribeParameters",
-                "ssm:GetParameters"
+                "ssm:DescribeParameter",
+                "ssm:GetParameters",
+                "ssm:GetParameter"
             ],
             "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
         },
