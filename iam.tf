@@ -46,6 +46,11 @@ resource "aws_iam_role_policy" "data_pipeline_archive" {
 EOF
 }
 
+resource "aws_kms_key" "dp_pw_key" {
+  description             = "DataPipeline Creds Key"
+  deletion_window_in_days = 10
+}
+
 resource "aws_iam_role_policy" "iam_role_policy" {
   role = "${aws_iam_role.data_pipeline_iam_role.id}"
 
@@ -65,7 +70,7 @@ resource "aws_iam_role_policy" "iam_role_policy" {
         {
           "Effect": "Allow",
           "Action": "kms:Decrypt",
-          "Resource": "arn:aws:kms:eu-west-2:*:key/${data.aws_ssm_parameter.key_id.value}"
+          "Resource": "${aws_kms_key.dp_pw_key.arn}"
         }
     ]
 }
