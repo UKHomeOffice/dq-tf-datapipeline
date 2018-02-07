@@ -39,7 +39,7 @@ resource "aws_iam_role_policy" "data_pipeline_archive" {
     {
       "Effect": "Allow",
       "Action": "kms:Decrypt",
-      "Resource": "${var.bucket_key}}"
+      "Resource": "${var.bucket_key}"
     }
   ]
 }
@@ -60,6 +60,11 @@ resource "aws_iam_role_policy" "iam_role_policy" {
                 "ssm:GetParameter"
             ],
             "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "kms:Decrypt",
+          "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
         }
     ]
 }
