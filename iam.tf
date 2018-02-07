@@ -57,7 +57,7 @@ resource "aws_iam_role_policy" "iam_role_policy" {
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
-                "ssm:GetParameter"
+                "ssm:GetParameters"
             ],
             "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
         },
