@@ -57,6 +57,7 @@ resource "aws_iam_role_policy" "iam_role_policy" {
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
+                "ssm:DescribeParameters",
                 "ssm:GetParameters"
             ],
             "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
@@ -64,7 +65,7 @@ resource "aws_iam_role_policy" "iam_role_policy" {
         {
           "Effect": "Allow",
           "Action": "kms:Decrypt",
-          "Resource": "arn:aws:ssm:eu-west-2:*:parameter/wherescape_rds_user"
+          "Resource": "arn:aws:kms:eu-west-2:*:key/${data.aws_ssm_parameter.key_id.value}"
         }
     ]
 }

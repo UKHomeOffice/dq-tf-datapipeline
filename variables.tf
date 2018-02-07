@@ -43,3 +43,7 @@ variable "archive_bucket" {
 variable "bucket_key" {
   description = "Decrypt S3 bucket key"
 }
+
+variable "environment" {
+  default = "notprod"
+}

@@ -17,3 +17,7 @@ data "aws_ami" "dp_web" {
     "self",
   ]
 }
+
+data "aws_ssm_parameter" "key_id" {
+  name = "${var.environment}_default_kms_key_id"
+}
