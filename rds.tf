@@ -46,17 +46,6 @@ resource "aws_security_group" "dp_db" {
     ]
   }
 
-  ingress {
-    from_port = 3389
-    to_port   = 3389
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${var.opssubnet_cidr_block}",
-      "${var.peering_cidr_block}",
-    ]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
