@@ -30,6 +30,11 @@ resource "aws_instance" "dp_web" {
 
   lifecycle {
     prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami_name",
+    ]
   }
 
   tags = {
