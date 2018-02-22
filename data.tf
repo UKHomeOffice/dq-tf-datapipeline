@@ -9,7 +9,7 @@ data "aws_ami" "dp_web" {
     name = "name"
 
     values = [
-      "dq-data-pipeline-server 2018-02-08T17-10-53Z*",
+      "dq-data-pipeline-server*",
     ]
   }
 
