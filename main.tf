@@ -33,7 +33,7 @@ resource "aws_instance" "dp_web" {
 
     ignore_changes = [
       "user_data",
-      "ami_name",
+      "ami",
       "instance_type",
     ]
   }
