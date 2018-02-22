@@ -21,7 +21,7 @@ resource "aws_route_table_association" "data_pipe_rt_association" {
 resource "aws_instance" "dp_web" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.dp_web.id}"
-  instance_type               = "t2.large"
+  instance_type               = "t2.xlarge"
   iam_instance_profile        = "${aws_iam_instance_profile.data_pipeline.id}"
   vpc_security_group_ids      = ["${aws_security_group.dp_web.id}"]
   associate_public_ip_address = false
@@ -34,6 +34,7 @@ resource "aws_instance" "dp_web" {
     ignore_changes = [
       "user_data",
       "ami_name",
+      "instance_type",
     ]
   }
 
