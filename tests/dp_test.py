@@ -21,19 +21,20 @@ class TestE2E(unittest.TestCase):
                 aws = "aws"
               }
 
-              appsvpc_id                  = "1234"
-              appsvpc_cidr_block          = "1.2.3.0/24"
-              opssubnet_cidr_block        = "1.2.3.0/24"
-              data_pipe_apps_cidr_block   = "10.1.8.0/24"
-              data_pipe_rds_cidr_block    = "10.1.9.0/24"
-              peering_cidr_block          = "1.1.1.0/24"
-              az                          = "eu-west-2a"
-              az2                         = "eu-west-2b"
-              naming_suffix               = "apps-preprod-dq"
-              key_name                    = "test"
-              archive_bucket              = "arn:aws:s3:::thisisabucket"
-              bucket_key                  = "arn:aws:kms:eu-west-2:111111111111:key/abcdabcdabcdabcd"
-              dq_database_cidr_block      = ["10.1.1.0/24"]
+              appsvpc_id                       = "1234"
+              appsvpc_cidr_block               = "1.2.3.0/24"
+              opssubnet_cidr_block             = "1.2.3.0/24"
+              data_pipe_apps_cidr_block        = "10.1.8.0/24"
+              data_pipe_rds_cidr_block         = "10.1.9.0/24"
+              peering_cidr_block               = "1.1.1.0/24"
+              az                               = "eu-west-2a"
+              az2                              = "eu-west-2b"
+              naming_suffix                    = "apps-preprod-dq"
+              key_name                         = "test"
+              archive_bucket                   = "arn:aws:s3:::thisisabucket"
+              bucket_key                       = "arn:aws:kms:eu-west-2:111111111111:key/abcdabcdabcdabcd"
+              dq_database_cidr_block           = ["10.1.1.0/24"]
+              dq_database_cidr_block_secondary = ["10.1.1.0/24"]
             }
         """
         self.result = Runner(self.snippet).result
