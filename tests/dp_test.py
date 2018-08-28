@@ -33,7 +33,6 @@ class TestE2E(unittest.TestCase):
               key_name                         = "test"
               archive_bucket                   = "arn:aws:s3:::thisisabucket"
               bucket_key                       = "arn:aws:kms:eu-west-2:111111111111:key/abcdabcdabcdabcd"
-              dq_database_cidr_block           = ["10.1.1.0/24"]
               dq_database_cidr_block_secondary = ["10.1.1.0/24"]
             }
         """

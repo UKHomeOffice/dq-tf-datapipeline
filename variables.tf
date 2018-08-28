@@ -7,10 +7,6 @@ variable "peering_cidr_block" {}
 variable "az" {}
 variable "az2" {}
 
-variable "dq_database_cidr_block" {
-  type = "list"
-}
-
 variable "dq_database_cidr_block_secondary" {
   type = "list"
 }
