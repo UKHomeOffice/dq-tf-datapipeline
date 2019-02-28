@@ -1,6 +1,4 @@
-data "aws_region" "current" {
-  current = true
-}
+data "aws_region" "current" {}
 
 data "aws_ami" "dp_web" {
   most_recent = true
