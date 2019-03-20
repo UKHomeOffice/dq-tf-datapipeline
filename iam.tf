@@ -50,6 +50,7 @@ EOF
 resource "aws_kms_key" "dp_pw_key" {
   description             = "DataPipeline Creds Key"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
 resource "aws_iam_role_policy" "iam_role_policy" {
